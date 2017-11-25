@@ -41,7 +41,6 @@ public class CategoryBarangController {
         }
     }
 
-
     @RequestMapping(method = RequestMethod.POST,
                     consumes = "application/json")
     public CategoryBarang save(@RequestBody CategoryBarang categoryBarang){
