@@ -1,0 +1,3 @@
+set catg barang belom bisa
+
+set hibernate 2nd level blm di baca app.properties

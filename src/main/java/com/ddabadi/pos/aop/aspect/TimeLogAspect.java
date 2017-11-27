@@ -49,7 +49,7 @@ public class TimeLogAspect {
 
     @Before("execution(public * com.ddabadi.pos.service.impl.*.*(org.springframework.data.domain.PageRequest)) && args(page)")
     public void beforeGet(org.springframework.data.domain.PageRequest page){
-        logger.info("AOP Before sebelum get barang");
+        logger.info("AOP Before sebelum Service");
     }
 
     @Around("@annotation(org.springframework.web.bind.annotation.RequestMapping) && execution(public * *(..))")

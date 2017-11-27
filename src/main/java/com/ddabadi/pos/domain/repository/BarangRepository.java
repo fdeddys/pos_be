@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 @CrossOrigin
-@RepositoryRestResource(collectionResourceRel = "impl", path = "impl")
+//@RepositoryRestResource(collectionResourceRel = "impl", path = "impl")
 public interface BarangRepository extends CrudRepository<Barang, Long> {
 
     List<Barang> findByNama(@Param("nama")String nama);

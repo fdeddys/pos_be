@@ -30,12 +30,17 @@ public class CategoryBarangServiceImpl implements CategoryBarangService {
     @Override
     public CategoryBarang save(CategoryBarang categoryBarang) {
         logger.info("Save");
-        CategoryBarang checkData = this.getById(categoryBarang.getId());
-        if(checkData == null){
+        if(categoryBarang.getId()==0){
             return repository.save(categoryBarang);
-        }   else{
-            return this.update(categoryBarang);
+        }else{
+            CategoryBarang checkData = this.getById(categoryBarang.getId());
+            if(checkData == null){
+                return repository.save(categoryBarang);
+            }   else{
+                return this.update(categoryBarang);
+            }
         }
+
 
     }
 

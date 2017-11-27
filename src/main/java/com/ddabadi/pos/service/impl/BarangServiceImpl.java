@@ -33,11 +33,13 @@ public class BarangServiceImpl implements BarangService {
     @Override
     public Barang save(Barang barang) {
 
-        logger.info("Save");
+        logger.info("BarangServiceImpl:begin save");
         Barang barangCheck = this.getById(barang.getId());
         if(barangCheck == null){
+            logger.info("BarangServiceImpl:Save"+ barang);
             return barangRepository.save(barang);
         }   else{
+            logger.info("BarangServiceImpl:update");
             return this.update(barang);
         }
     }

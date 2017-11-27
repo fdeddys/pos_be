@@ -2,6 +2,7 @@ package com.ddabadi.pos.rest;
 
 import com.ddabadi.pos.aop.Timed;
 import com.ddabadi.pos.domain.Barang;
+import com.ddabadi.pos.domain.CategoryBarang;
 import com.ddabadi.pos.service.BarangService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,22 +56,7 @@ public class BarangController {
         return barangService.save(barang);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "gen")
-    @Timed
-    public Page<Barang> getGen() {
-        Barang barang = new Barang();
-        barang.setNama("Pena");
-        barang.setId(0L);
-        barangService.save(barang);
 
-        Barang barang2 = new Barang();
-        barang2.setId(0L);
-        barang2.setNama("Pensil");
-        barangService.save(barang2);
-
-        return this.getBarang(1,100);
-
-    }
 
 
 }
