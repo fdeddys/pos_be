@@ -39,7 +39,7 @@ public class Barang extends BaseEntity implements Serializable{
     private BarangStatus barangStatus;
 
     @ManyToOne
-            //(optional = true, fetch = FetchType.EAGER)
+    //(optional = true, fetch = FetchType.EAGER)
     //, cascade = CascadeType.)
     //, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_categoryBarang", updatable = true, insertable = false)

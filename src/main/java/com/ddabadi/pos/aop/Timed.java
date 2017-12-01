@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  * Time: 8:41 PM
  * To change this template use File | Settings | File Templates.
  */
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
+//@Target(ElementType.METHOD)
+//@Retention(RetentionPolicy.RUNTIME)
 public @interface Timed {
 }

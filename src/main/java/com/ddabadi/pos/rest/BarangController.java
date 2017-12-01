@@ -35,8 +35,8 @@ public class BarangController {
     @Timed
     @RequestMapping(method = RequestMethod.GET,
                     value = "/{hal}/{jumlah}")
-    public Page<Barang> getBarang(@PathVariable int hal,
-                                  @PathVariable int jumlah) {
+    public Page<Barang> getBarangPage(@PathVariable int hal,
+                                      @PathVariable int jumlah) {
         PageRequest pageRequest = new PageRequest(hal -1 ,jumlah, Sort.Direction.ASC,"id");
         return this.barangService.getBarang(pageRequest);
     }
