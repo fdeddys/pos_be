@@ -14,7 +14,8 @@ import java.io.Serializable;
  * To change this template use File | Settings | File Templates.
  */
 
-@Entity(name = "m_supplier")
+@Entity
+@Table(name = "m_supplier")
 public class Supplier extends Person implements Serializable {
 
     @Id

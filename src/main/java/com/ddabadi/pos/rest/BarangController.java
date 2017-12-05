@@ -2,18 +2,14 @@ package com.ddabadi.pos.rest;
 
 import com.ddabadi.pos.aop.Timed;
 import com.ddabadi.pos.domain.Barang;
-import com.ddabadi.pos.domain.CategoryBarang;
-import com.ddabadi.pos.service.BarangService;
+import com.ddabadi.pos.service.impl.BarangServiceImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,7 +26,7 @@ import java.util.List;
 public class BarangController {
 
     private Logger logger = Logger.getLogger(BarangController.class);
-    @Autowired private BarangService barangService;
+    @Autowired private BarangServiceImpl barangService;
 
     @Timed
     @RequestMapping(method = RequestMethod.GET,
@@ -38,7 +34,7 @@ public class BarangController {
     public Page<Barang> getBarangPage(@PathVariable int hal,
                                       @PathVariable int jumlah) {
         PageRequest pageRequest = new PageRequest(hal -1 ,jumlah, Sort.Direction.ASC,"id");
-        return this.barangService.getBarang(pageRequest);
+        return this.barangService.getAll(pageRequest);
     }
 
     @Timed

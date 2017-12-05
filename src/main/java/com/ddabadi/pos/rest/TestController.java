@@ -1,22 +1,16 @@
 package com.ddabadi.pos.rest;
 
 import com.ddabadi.pos.aop.Timed;
-import com.ddabadi.pos.domain.Barang;
-import com.ddabadi.pos.domain.CategoryBarang;
-import com.ddabadi.pos.domain.Customer;
-import com.ddabadi.pos.service.BarangService;
-import com.ddabadi.pos.service.CategoryBarangService;
-import com.ddabadi.pos.service.CustomerService;
+import com.ddabadi.pos.domain.*;
+import com.ddabadi.pos.enumType.EnStatus;
+import com.ddabadi.pos.service.impl.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,51 +25,34 @@ public class TestController {
 
     private Logger logger= Logger.getLogger(TestController.class) ;
 
-    @Autowired private BarangService barangService;
-    @Autowired private CategoryBarangService categoryBarangService;
-    @Autowired private CustomerService customerService;
+    @Autowired private BarangServiceImpl barangService;
+    @Autowired private CategoryBarangServiceImpl categoryBarangService;
+    @Autowired private CustomerServiceImpl customerService;
+    @Autowired private SatuanServiceImpl satuanService;
+    @Autowired private GudangServiceImpl gudangService;
 
     @RequestMapping(method = RequestMethod.GET, value = "tesData")
     @Timed
     @Transactional(value = Transactional.TxType.REQUIRED)
     public String getGen() {
 
+        Satuan satuan = new Satuan();
+        satuan.setNama("pieces");
+        satuanService.save(satuan);
+
         logger.info("create new Catg");
-//        CategoryBarang categoryBarang = new CategoryBarang();
-//        categoryBarang.setId(0L);
-//        categoryBarang.setKeterangan("atk");
-//        categoryBarang= categoryBarangService.save(categoryBarang);
-//
-        CategoryBarang categoryBarang = categoryBarangService.getById(1L);
+        CategoryBarang categoryBarang = new CategoryBarang();
+        categoryBarang.setId(0L);
+        categoryBarang.setKeterangan("atk");
+        categoryBarang= categoryBarangService.save(categoryBarang);
 
         logger.info("create new barang");
         Barang barang = new Barang();
         barang.setNama("Pena");
         barang.setId(0L);
         barang.setCategoryBarang(categoryBarang);
+        barang.setSatuan(satuan);
         barangService.save(barang);
-
-//        Barang barang2 = new Barang();
-//        barang2.setNama("Pensil");
-//        barang2.setId(0L);
-//        barang2.setCategoryBarang(categoryBarang);
-
-        //categoryBarang.setBarangList(barangs);
-
-
-
-
-//        CategoryBarang categoryBarang2 = new CategoryBarang();
-//        categoryBarang2.setId(0L);
-//        categoryBarang2.setKeterangan("Komputer");
-//        categoryBarangService.save(categoryBarang2);
-//
-//        Barang barang2 = new Barang();
-//        barang2.setId(0L);
-//        barang2.setNama("Mouse");
-//        barang2.setCategoryBarang(categoryBarang2);
-//        barangService.save(barang2);
-
 
         logger.info("create new Customer");
         Customer customer= new Customer();
@@ -88,6 +65,13 @@ public class TestController {
         customer.setKontakPerson("nama kontak");
         customer.setKota("kota") ;
         customerService.save(customer);
+
+        Gudang gudang = new Gudang();
+        gudang.setNama("gudang 1");
+        gudang.setAlamat1("alamat 1");
+        gudang.setEnStatus(EnStatus.ACTIVE);
+        gudangService.save(gudang);
+
 
         return "sukses";
 

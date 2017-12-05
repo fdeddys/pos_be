@@ -2,7 +2,7 @@ package com.ddabadi.pos.service.impl;
 
 import com.ddabadi.pos.domain.CategoryBarang;
 import com.ddabadi.pos.domain.repository.CategoryBarangRepository;
-import com.ddabadi.pos.service.CategoryBarangService;
+import com.ddabadi.pos.service.GenericService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,10 +20,10 @@ import javax.transaction.Transactional;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-@Transactional
-public class CategoryBarangServiceImpl implements CategoryBarangService {
+@Transactional(Transactional.TxType.REQUIRED)
+public class CategoryBarangServiceImpl implements GenericService<CategoryBarang> {
 
-    private final Logger logger = Logger.getLogger(CategoryBarangService.class);
+    private final Logger logger = Logger.getLogger(CategoryBarangServiceImpl.class);
 
     @Autowired
     private CategoryBarangRepository repository;
@@ -49,6 +50,7 @@ public class CategoryBarangServiceImpl implements CategoryBarangService {
         logger.info("Update");
         CategoryBarang categoryBarangUpdate = repository.findOne(categoryBarang.getId());
         categoryBarangUpdate.setKeterangan(categoryBarang.getKeterangan());
+        categoryBarangUpdate.setLastUpdate(new Date());
         return repository.save(categoryBarangUpdate);
     }
 

@@ -1,14 +1,10 @@
 package com.ddabadi.pos.domain;
 
-import ch.qos.logback.classic.db.names.ColumnName;
-import com.ddabadi.pos.config.BarangStatus;
-import com.ddabadi.pos.domain.base.BaseEntity;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.annotation.CreatedDate;
+import com.ddabadi.pos.enumType.EnStatus;
+import com.ddabadi.pos.domain.base.LoggedEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,7 +21,7 @@ import java.util.Date;
         })
 //@Cacheable
 //@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Barang extends BaseEntity implements Serializable{
+public class Barang extends LoggedEntity implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,21 +32,29 @@ public class Barang extends BaseEntity implements Serializable{
     private String nama;
 
     @Column
-    private BarangStatus barangStatus;
+    private EnStatus enStatus;
 
     @ManyToOne
-    //(optional = true, fetch = FetchType.EAGER)
-    //, cascade = CascadeType.)
-    //, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_categoryBarang", updatable = true, insertable = false)
-    //, nullable = true)
+    @JoinColumn(name = "id_category_barang")
     private CategoryBarang categoryBarang;
+
+    @OneToOne
+    @JoinColumn(name = "satuan")
+    private Satuan satuan;
 
     @PrePersist
     private void prePersist(){
-        if(this.getBarangStatus()==null){
-            this.setBarangStatus(BarangStatus.ACTIVE);
+        if(this.getEnStatus()==null){
+            this.setEnStatus(EnStatus.ACTIVE);
         }
+    }
+
+    public Satuan getSatuan() {
+        return satuan;
+    }
+
+    public void setSatuan(Satuan satuan) {
+        this.satuan = satuan;
     }
 
     public CategoryBarang getCategoryBarang() {
@@ -61,12 +65,12 @@ public class Barang extends BaseEntity implements Serializable{
         this.categoryBarang = categoryBarang;
     }
 
-    public BarangStatus getBarangStatus() {
-        return barangStatus;
+    public EnStatus getEnStatus() {
+        return enStatus;
     }
 
-    public void setBarangStatus(BarangStatus barangStatus) {
-        this.barangStatus = barangStatus;
+    public void setEnStatus(EnStatus enStatus) {
+        this.enStatus = enStatus;
     }
 
     public String getNama() {

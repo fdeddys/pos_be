@@ -1,46 +1,41 @@
-package com.ddabadi.pos.domain.abstractClass;
+package com.ddabadi.pos.domain;
 
 import com.ddabadi.pos.domain.base.LoggedEntity;
+import com.ddabadi.pos.enumType.EnStatus;
 
 import javax.persistence.*;
 
 /**
  * Created with IntelliJ IDEA.
  * User: deddy
- * Date: 11/26/17
- * Time: 10:11 PM
+ * Date: 12/5/17
+ * Time: 11:10 PM
  * To change this template use File | Settings | File Templates.
  */
+
 @Entity
-@Table(name = "abs_person", indexes = { @Index(columnList = "nama", name = "ix_nama")})
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Person extends LoggedEntity {
+@Table(name = "m_gudang", indexes = @Index(columnList = "nama", name = "ix_nama"))
+public class Gudang extends LoggedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_person", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
     @Column(length = 100)
     private String nama;
 
-    @Column(length = 250)
+    @Column
+    private EnStatus enStatus;
+
+    @Column
     private String alamat1;
 
-    @Column(length = 250)
+    @Column
     private String alamat2;
-
-    @Column(length = 30)
-    private String telp1;
-
-    @Column(length = 30)
-    private String telp2;
 
     @Column(length = 100)
     private String kota;
-
-    @Column(length = 100)
-    private String kontakPerson;
 
     public Long getId() {
         return id;
@@ -56,6 +51,14 @@ public abstract class Person extends LoggedEntity {
 
     public void setNama(String nama) {
         this.nama = nama;
+    }
+
+    public EnStatus getEnStatus() {
+        return enStatus;
+    }
+
+    public void setEnStatus(EnStatus enStatus) {
+        this.enStatus = enStatus;
     }
 
     public String getAlamat1() {
@@ -74,35 +77,11 @@ public abstract class Person extends LoggedEntity {
         this.alamat2 = alamat2;
     }
 
-    public String getTelp1() {
-        return telp1;
-    }
-
-    public void setTelp1(String telp1) {
-        this.telp1 = telp1;
-    }
-
-    public String getTelp2() {
-        return telp2;
-    }
-
-    public void setTelp2(String telp2) {
-        this.telp2 = telp2;
-    }
-
     public String getKota() {
         return kota;
     }
 
     public void setKota(String kota) {
         this.kota = kota;
-    }
-
-    public String getKontakPerson() {
-        return kontakPerson;
-    }
-
-    public void setKontakPerson(String kontakPerson) {
-        this.kontakPerson = kontakPerson;
     }
 }

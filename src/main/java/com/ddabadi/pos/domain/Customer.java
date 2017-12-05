@@ -12,13 +12,9 @@ import java.io.Serializable;
  * Time: 10:15 PM
  * To change this template use File | Settings | File Templates.
  */
-@Entity(name = "m_customer")
+@Entity
+@Table(name = "m_customer")
 public class Customer extends Person implements Serializable {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name = "id_customer", unique = true, nullable = false)
-//    private Long id;
 
     private byte canCredit=0;
 
@@ -34,14 +30,6 @@ public class Customer extends Person implements Serializable {
             this.setNpwp("");
         }
     }
-
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
 
     public long getTop() {
         return top;

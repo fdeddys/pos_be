@@ -2,12 +2,15 @@ package com.ddabadi.pos.service.impl;
 
 import com.ddabadi.pos.domain.Customer;
 import com.ddabadi.pos.domain.repository.CustomerRepository;
-import com.ddabadi.pos.service.CustomerService;
+import com.ddabadi.pos.service.GenericService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,9 +20,10 @@ import org.springframework.stereotype.Service;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class CustomerServiceImpl implements CustomerService{
+@Transactional(Transactional.TxType.REQUIRED)
+public class CustomerServiceImpl implements GenericService<Customer> {
 
-    private final Logger logger = Logger.getLogger(CustomerService.class);
+    private final Logger logger = Logger.getLogger(CustomerServiceImpl.class);
 
     @Autowired
     private CustomerRepository repository;
@@ -40,6 +44,7 @@ public class CustomerServiceImpl implements CustomerService{
         logger.info("Update");
         Customer customerUpdate = repository.findOne(customer.getId());
         customerUpdate.setNama(customer.getNama());
+        customerUpdate.setLastUpdate(new Date());
         return repository.save(customerUpdate);
     }
 

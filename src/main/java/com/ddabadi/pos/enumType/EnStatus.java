@@ -1,4 +1,4 @@
-package com.ddabadi.pos.config;
+package com.ddabadi.pos.enumType;
 
 /**
  * Created with IntelliJ IDEA.
@@ -7,6 +7,6 @@ package com.ddabadi.pos.config;
  * Time: 10:32 PM
  * To change this template use File | Settings | File Templates.
  */
-public enum BarangStatus {
+public enum EnStatus {
     ACTIVE, NONACTIVE
 }

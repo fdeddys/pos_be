@@ -3,7 +3,8 @@ package com.ddabadi.pos.rest;
 
 import com.ddabadi.pos.domain.CategoryBarang;
 import com.ddabadi.pos.domain.repository.CategoryBarangRepository;
-import com.ddabadi.pos.service.CategoryBarangService;
+
+import com.ddabadi.pos.service.impl.CategoryBarangServiceImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,7 +20,7 @@ public class CategoryBarangController {
 
     private Logger logger = Logger.getLogger(CategoryBarangController.class);
 
-    @Autowired private CategoryBarangService service;
+    @Autowired private CategoryBarangServiceImpl service;
 
     @RequestMapping(value = "{page}/{size}",
                     method = RequestMethod.GET)

@@ -1,18 +1,16 @@
 package com.ddabadi.pos.service.impl;
 
-import com.ddabadi.pos.aop.Timed;
 import com.ddabadi.pos.domain.Barang;
 import com.ddabadi.pos.domain.repository.BarangRepository;
-import com.ddabadi.pos.service.BarangService;
+import com.ddabadi.pos.service.GenericService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,10 +20,10 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-@Transactional
-public class BarangServiceImpl implements BarangService {
+@Transactional(value = Transactional.TxType.REQUIRED)
+public class BarangServiceImpl implements GenericService<Barang> {
 
-    private final Logger logger = Logger.getLogger(BarangService.class);
+    private final Logger logger = Logger.getLogger(BarangServiceImpl.class);
 
     @Autowired
     private BarangRepository barangRepository;
@@ -50,14 +48,12 @@ public class BarangServiceImpl implements BarangService {
         logger.info("Update");
         Barang barangUpdate = barangRepository.findOne(barang.getId());
         barangUpdate.setNama(barang.getNama());
-
+        barangUpdate.setLastUpdate(new Date());
         return barangRepository.save(barangUpdate);
     }
 
-
-
     @Override
-    public Page<Barang> getBarang(PageRequest page){
+    public Page<Barang> getAll(PageRequest page){
         return barangRepository.findBarangs(page);  //To change body of implemented methods use File | Settings | File Templates.
     }
 
