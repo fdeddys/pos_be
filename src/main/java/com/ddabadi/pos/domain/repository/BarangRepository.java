@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
@@ -21,8 +22,9 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 
-@CrossOrigin
-//@RepositoryRestResource(collectionResourceRel = "impl", path = "impl")
+// @CrossOrigin
+// @RepositoryRestResource(collectionResourceRel = "impl", path = "impl")
+@Repository
 public interface BarangRepository extends CrudRepository<Barang, Long> {
 
     List<Barang> findByNama(@Param("nama")String nama);

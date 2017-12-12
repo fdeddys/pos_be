@@ -12,13 +12,15 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "abs_person", indexes = { @Index(columnList = "nama", name = "ix_nama")})
+@Table( name = "abs_person",
+        indexes = { @Index(columnList = "nama", name = "ix_nama")}
+)
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Person extends LoggedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_person", unique = true, nullable = false)
+    @Column(name = "id_person")
     private Long id;
 
     @Column(length = 100)

@@ -31,6 +31,17 @@ public class Customer extends Person implements Serializable {
         }
     }
 
+    @Column(length = 250)
+    private String note;
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     public long getTop() {
         return top;
     }

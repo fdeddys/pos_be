@@ -10,7 +10,7 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "abs_global_parameter", indexes = @Index (name = "ix_nama", columnList = "nama"))
+@Table(name = "abs_global_parameter") //, indexes = @Index (name = "ix_nama", columnList = "nama"))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="global_type")
 public abstract class GlobalParam {

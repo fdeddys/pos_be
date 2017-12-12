@@ -4,6 +4,8 @@ import com.ddabadi.pos.domain.base.LoggedEntity;
 import com.ddabadi.pos.enumType.EnStatus;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,16 +16,19 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "m_gudang", indexes = @Index(columnList = "nama", name = "ix_nama"))
+@Table(name = "m_gudang", indexes = @Index(columnList = "nama", name = "ix_nama_gudang"))
 public class Gudang extends LoggedEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
     @Column(length = 100)
     private String nama;
+
+    @OneToMany(mappedBy = "gudang")
+    private Set<Stock> stocks = new HashSet<Stock>();
 
     @Column
     private EnStatus enStatus;
@@ -36,6 +41,14 @@ public class Gudang extends LoggedEntity {
 
     @Column(length = 100)
     private String kota;
+
+    public Set<Stock> getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(Set<Stock> stocks) {
+        this.stocks = stocks;
+    }
 
     public Long getId() {
         return id;

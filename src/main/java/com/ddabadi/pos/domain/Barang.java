@@ -5,6 +5,8 @@ import com.ddabadi.pos.domain.base.LoggedEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,14 +19,12 @@ import java.io.Serializable;
 @Table(name = "m_barang",
        indexes = {
             @Index(columnList="id", name="ix_id"),
-            @Index(columnList = "nama", name="ix_nama")
+            @Index(columnList = "nama", name="ix_nama_barang")
         })
-//@Cacheable
-//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Barang extends LoggedEntity implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
@@ -34,19 +34,51 @@ public class Barang extends LoggedEntity implements Serializable{
     @Column
     private EnStatus enStatus;
 
-    @ManyToOne
-    @JoinColumn(name = "id_category_barang")
-    private CategoryBarang categoryBarang;
+    @ManyToMany(mappedBy = "barangs")
+    private Set<CategoryBarang> categoryBarangs = new HashSet<CategoryBarang>();
 
     @OneToOne
     @JoinColumn(name = "satuan")
     private Satuan satuan;
+
+    @OneToMany(mappedBy = "barang")
+    private Set<Stock> stocks = new HashSet<Stock>();
+
+    @Column
+    private Long minStock;
+
+    @Column
+    private Long maxStock;
 
     @PrePersist
     private void prePersist(){
         if(this.getEnStatus()==null){
             this.setEnStatus(EnStatus.ACTIVE);
         }
+    }
+
+    public Set<Stock> getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(Set<Stock> stocks) {
+        this.stocks = stocks;
+    }
+
+    public Long getMinStock() {
+        return minStock;
+    }
+
+    public void setMinStock(Long minStock) {
+        this.minStock = minStock;
+    }
+
+    public Long getMaxStock() {
+        return maxStock;
+    }
+
+    public void setMaxStock(Long maxStock) {
+        this.maxStock = maxStock;
     }
 
     public Satuan getSatuan() {
@@ -57,12 +89,12 @@ public class Barang extends LoggedEntity implements Serializable{
         this.satuan = satuan;
     }
 
-    public CategoryBarang getCategoryBarang() {
-        return categoryBarang;
+    public Set<CategoryBarang> getCategoryBarangs() {
+        return categoryBarangs;
     }
 
-    public void setCategoryBarang(CategoryBarang categoryBarang) {
-        this.categoryBarang = categoryBarang;
+    public void setCategoryBarangs(Set<CategoryBarang> categoryBarangs) {
+        this.categoryBarangs = categoryBarangs;
     }
 
     public EnStatus getEnStatus() {
